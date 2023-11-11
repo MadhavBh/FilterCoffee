@@ -18,12 +18,6 @@ loader:
     mov word [0xb8016], 0x0264 ; d
     mov word [0xb8018], 0x0221 ; !
 
-    mov eax, 1
-    mov ebx, 5
-    add eax,ebx
-    mov byte[eax], [0xb8020]
-    hlt
-
 .loop:
   jmp .loop
 
