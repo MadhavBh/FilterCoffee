@@ -1,9 +1,13 @@
 
-global loader
+.global loader
 
-section .text
+
+
+.section .text
 bits 32
-loader: 
+loader:
+
+    
     mov word [0xb8000], 0x0248 ; H
     mov word [0xb8002], 0x0265 ; e
     mov word [0xb8004], 0x026c ; l
@@ -17,6 +21,7 @@ loader:
     mov word [0xb8014], 0x026c ; l
     mov word [0xb8016], 0x0264 ; d
     mov word [0xb8018], 0x0221 ; !
+
 
 .loop:
   jmp .loop
