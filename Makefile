@@ -1,14 +1,14 @@
 default: run
 .PHONY: default build run clean
 
-run: sugama.iso
-	qemu-system-x86_64 -cdrom build/sugama.iso
+run: build/filtercoffee.iso
+	qemu-system-x86_64 -cdrom build/filtercoffee.iso
 
-sugama.iso: build/kernel.bin grub.cfg
+build/filtercoffee.iso: build/kernel.bin grub.cfg
 	mkdir -p build/isofiles/boot/grub
 	cp grub.cfg build/isofiles/boot/grub
 	cp build/kernel.bin build/isofiles/boot/
-	grub-mkrescue -o build/sugama.iso build/isofiles
+	grub-mkrescue -o build/filtercoffee.iso build/isofiles
 
 build/kernel.bin: build/boot.o build/mbhead.o build/kernel.o linker.ld
 	#ld -n -m elf_i386 -o build/kernel.bin -T linker.ld build/boot.o build/mbhead.o
