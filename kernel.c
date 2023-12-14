@@ -51,7 +51,30 @@ void terminal_init(void){
       terminal_buffer[index] = vga_entry(' ', terminal_color);
     }
   }
+}
 
+void terminal_setcolor(uint8_t color){
+  terminal_color = color;
+}
+
+void terminal_put_entry(char c, uint8_t color, size_t x, size_t y){
+  const size_t index = y * vga_width + x;
+  terminal_buffer[index] = vga_entry(c, color);
+}
+
+void terminal_putchar(char c){
+  terminal_put_entry(c, terminal_color, terminal_column, terminal_row);
+  if(++terminal_column == vga_width){
+    terminal_column = 0;
+    if(++terminal_row == vga_height){
+      terminal_row = 0;
+    }
+  }
+}
+
+void kernel_main(void){
+  terminal_init();
+  terminal_put_entry('h', terminal_color, terminal_column, terminal_row);
 }
 
 

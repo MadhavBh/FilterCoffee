@@ -9,13 +9,17 @@ sugama.iso: build/kernel.bin grub.cfg
 	cp grub.cfg build/isofiles/boot/grub
 	cp build/kernel.bin build/isofiles/boot/
 	grub-mkrescue -o build/sugama.iso build/isofiles
-	
-build/kernel.bin: build/boot.o linker.ld
-	ld -n -m elf_i386 -o build/kernel.bin -T linker.ld build/boot.o build/mbhead.o
+
+build/kernel.bin: build/boot.o build/mbhead.o build/kernel.o linker.ld
+	#ld -n -m elf_i386 -o build/kernel.bin -T linker.ld build/boot.o build/mbhead.o
+	/home/madhavbh/opt/cross/bin/i686-elf-gcc -T linker.ld -o build/kernel.bin -ffreestanding -O2 -nostdlib build/mbhead.o build/boot.o build/kernel.o -lgcc
+
+build/kernel.o: kernel.c 
+	/home/madhavbh/opt/cross/bin/i686-elf-gcc -c kernel.c -o build/kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
 build/boot.o: boot.asm
 	mkdir -p build
-	nasm -felf32 boot.asm -o build/boot.o
+	nasm -felf32 boottwo.asm -o build/boot.o
 	#i686-elf-as boot.asm -o build/boot.o
 
 build/mbhead.o: mbhead.asm
