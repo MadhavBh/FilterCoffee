@@ -2,7 +2,6 @@
 #include<stddef.h>
 #include<stdint.h>
 
-
 #if defined(__Liux__)
 #error "You are not using a cross-compiler,files not compiled targeting the required architecture"
 #endif
@@ -72,9 +71,19 @@ void terminal_putchar(char c){
   }
 }
 
+void terminal_write(const char* data, size_t size){
+  for(size_t i = 0; i < size; i++){
+    terminal_putchar(data[i]);
+  }
+}
+
+void terminal_write_string(const char* data){
+  terminal_write(data, strlen(data));
+}
+
 void kernel_main(void){
   terminal_init();
-  terminal_put_entry('h', terminal_color, terminal_column, terminal_row);
+  terminal_write_string("Hello from the kernel");
 }
 
 
