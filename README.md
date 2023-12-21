@@ -9,5 +9,5 @@ The FilterCoffee is an x86_32-bit architecture based hobby kernel.
 
 utilizing this project to learn about system architectures and different instruction sets.
 
-
+using only VGA text mode
 
