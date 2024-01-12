@@ -9,13 +9,13 @@ void print_letter(uint8_t scancode){
     case 0x00:
       terminal_write_string("error");
       break;
-    case 0x01:
+    case 0x16:
       terminal_write_string("esc");
       break;
     case 0x02:
       terminal_write_string("1");
       break;
-    case 0x3:
+    case 0x41:
       terminal_write_string("2");
       break;
 
@@ -34,6 +34,7 @@ void print_letter(uint8_t scancode){
 static void keyboard_callback(registers_t *regs){
   uint8_t scancode = port_byte_in(0x60);
   print_letter(scancode);
+  terminal_write_string("hjello"); 
   terminal_new_line();
 }
 

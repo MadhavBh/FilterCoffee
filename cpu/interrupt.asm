@@ -1,5 +1,59 @@
 [extern isr_handler]
 [extern irq_handler]
+
+isr_common_stub:
+    pusha ; general purpose registers
+    
+    mov ax, ds ; data segment selector
+    push eax
+
+    mov ax, 0x10 ; kernel data segment
+
+    mov fs, ax
+    mov gs, ax
+
+    push esp  ;hand over stack to c function
+    call isr_handler ; call the function
+    pop eax   ;pop stack pointer
+
+    pop eax   ; restore original segment pointers segment
+    mov ds, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
+
+    popa ; restore general purpose registers
+    
+    add esp, 8 ; remove int_no and err_code from Stack
+
+    iret
+
+irq_common_stub:
+    ; 1. Save CPU state
+    pusha
+    mov ax, ds
+    push eax
+    mov ax, 0x10
+    mov ds, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
+
+    ; 2. Call C handler
+    push esp
+    call irq_handler ; Different than the ISR code
+    pop ebx  ; Different than the ISR code
+
+    ; 3. Restore state
+    pop ebx
+    mov ds, bx
+    mov es, bx
+    mov fs, bx
+    mov gs, bx
+    popa
+    add esp, 8
+    iret
+
 ;declaring all the isr as global to used from c 
 global isr0
 global isr1
@@ -320,59 +374,5 @@ irq15:
 	push byte 15
 	push byte 47
 	jmp irq_common_stub
-
-isr_common_stub:
-    pusha ; general purpose registers
-    
-    mov ax, ds ; data segment selector
-    push eax
-
-    mov ax, 0x10 ; kernel data segment
-
-    mov fs, ax
-    mov gs, ax
-
-    push esp  ;hand over stack to c function
-    call isr_handler ; call the function
-    pop eax   ;pop stack pointer
-
-    pop eax   ; restore original segment pointers segment
-    mov ds, ax
-    mov es, ax
-    mov fs, ax
-    mov gs, ax
-
-    popa ; restore general purpose registers
-    
-    add esp, 8 ; remove int_no and err_code from Stack
-
-    iret
-
-irq_common_stub:
-    ; 1. Save CPU state
-    pusha
-    mov ax, ds
-    push eax
-    mov ax, 0x10
-    mov ds, ax
-    mov es, ax
-    mov fs, ax
-    mov gs, ax
-
-    ; 2. Call C handler
-    push esp
-    call irq_handler ; Different than the ISR code
-    pop ebx  ; Different than the ISR code
-
-    ; 3. Restore state
-    pop ebx
-    mov ds, bx
-    mov es, bx
-    mov fs, bx
-    mov gs, bx
-    popa
-    add esp, 8
-    iret
-
 
 

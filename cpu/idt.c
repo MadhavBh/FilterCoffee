@@ -1,4 +1,5 @@
 #include"idt.h"
+#include"../drivers/vga.h"
 #define low_16(address)(uint16_t)((address) & 0xFFFF)
 #define high_16(address)(uint16_t)(((address)>>16) & 0xFFFF)
 
@@ -20,5 +21,6 @@ void load_idt(){
   idt_reg.limit = 256 * sizeof(idt_gate_t) - 1;
 
   asm volatile("lidt (%0)" : : "r"(&idt_reg));
+  terminal_write_string("IDT loaded..\n");
 }
 
