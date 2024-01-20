@@ -3,7 +3,7 @@
 //#include <sys/types.h>
 #include"idt.h"
 #include"../src/ports.h"
-#include"../drivers/vga.h"
+#include"../drivers/vga2.h"
 
 isr_t interrupt_handlers[256];
 
@@ -40,7 +40,7 @@ void isr_install(){
     set_idt_gate(29, (uint32_t) isr29);
     set_idt_gate(30, (uint32_t) isr30);
     set_idt_gate(31, (uint32_t) isr31); 
-    terminal_write_string("in isr_install\n");
+    print_string("in isr_install\n");
 }
 
 void irq_install(){
@@ -60,7 +60,7 @@ void irq_install(){
     set_idt_gate(45, (uint32_t)irq13);
     set_idt_gate(46, (uint32_t)irq14);
     set_idt_gate(47, (uint32_t)irq15);
-    terminal_write_string("in irq_install\n");
+    print_string("in irq_install\n");
 }
 
 void repro_pic(){
@@ -84,7 +84,7 @@ void repro_pic(){
     // OCW1
     port_byte_out(0x21, 0x0);
     port_byte_out(0xA1, 0x0);
-    terminal_write_string("in repro_pic\n");
+    print_string("in repro_pic\n");
   
 }
 
@@ -133,8 +133,7 @@ void register_interrupt_handler(uint8_t n ,isr_t handler){
 }
 
 void isr_handler(registers_t *r){
-  terminal_write_string(exception_messages[(*r).int_no]);
-  terminal_new_line();
+  print_string(exception_messages[(*r).int_no]);
 }
 
 void irq_handler(registers_t *r){

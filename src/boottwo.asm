@@ -13,9 +13,9 @@ stack_top:
 ;executable instruction set.
 section .text
 
-;[extern gdtpr]
-;global flush_gdt
-global loader: function ( loader.end - loader)
+[extern gdtptr]
+global flush_gdt
+;global loader: function ( loader.end - loader)
 
 loader: 
   mov esp, stack_top ; setting stack top 
@@ -26,6 +26,9 @@ loader:
   cli ;Invalidates a line containing the byte addressed in either the data or instruction cache, causing subsequent references to       retrieve the line again from main memory.
   
 ;  flush_gdt:
+;
+     ;mov eax, [esp + 4]
+      ;lgdt[eax]
 ;    lgdt[gdtptr]
 ;    mov ax, 0x10
 ;    mov ds, ax
@@ -37,6 +40,7 @@ loader:
 
 ; flush_two:
 ;    ret
+
 .hang: hlt
   jmp .hang ; loop
 

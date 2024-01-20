@@ -2,7 +2,7 @@ default: run
 .PHONY: default build run clean
 
 run: build/filtercoffee.iso
-	qemu-system-x86_64 -cdrom build/filtercoffee.iso
+	qemu-system-x86_64 -d int -no-reboot -cdrom build/filtercoffee.iso
 
 build/filtercoffee.iso: build/kernel.bin grub.cfg
 	mkdir -p build/isofiles/boot/grub
@@ -17,8 +17,8 @@ build/kernel.bin: build/boot.o build/mbhead.o build/vga.o build/kernel.o build/i
 build/kernel.o: src/kernel.c 
 	/home/madhavbh/opt/cross/bin/i686-elf-gcc -c src/kernel.c -o build/kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
-build/vga.o: drivers/vga.c 
-	/home/madhavbh/opt/cross/bin/i686-elf-gcc -c drivers/vga.c -o build/vga.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+build/vga.o: drivers/vga2.c 
+	/home/madhavbh/opt/cross/bin/i686-elf-gcc -c drivers/vga2.c -o build/vga.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
 build/isr.o: cpu/isr.c #new CPU
 	/home/madhavbh/opt/cross/bin/i686-elf-gcc -c cpu/isr.c -o build/isr.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
