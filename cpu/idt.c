@@ -10,7 +10,7 @@ idt_register_t idt_reg;
 
 void set_idt_gate(int n, uint32_t handler){
   idt[n].low_offset = low_16(handler);
-  idt[n].selector = kernel_cs;
+  idt[n].selector = 0x08;
   idt[n].alwayszero = 0;
   idt[n].flags = 0x8E;
   idt[n].high_offset = high_16(handler);

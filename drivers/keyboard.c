@@ -9,13 +9,13 @@ void print_letter(uint8_t scancode){
     case 0x00:
       print_string("error");
       break;
-    case 0x16:
+    case 0x1d:
       print_string("esc");
       break;
-    case 0x02:
+    case 0x21:
       print_string("1");
       break;
-    case 0x41:
+    case 0x3:
       print_string("2");
       break;
 
@@ -24,6 +24,7 @@ void print_letter(uint8_t scancode){
         print_string("unknown key");
       } else if(scancode <= 0x39 + 0x80){
         print_string("key up");
+        print_letter(scancode - 0x80);
       }else{
         print_string("unknown key");
       }
@@ -39,5 +40,7 @@ static void keyboard_callback(registers_t *regs){
 
 
 void init_keyboard(){
+  print_string("in init keyboard\n");
   register_interrupt_handler(IRQ1, keyboard_callback);
+
 }

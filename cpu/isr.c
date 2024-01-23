@@ -41,6 +41,8 @@ void isr_install(){
     set_idt_gate(30, (uint32_t) isr30);
     set_idt_gate(31, (uint32_t) isr31); 
     print_string("in isr_install\n");
+    repro_pic();
+    irq_install();
 }
 
 void irq_install(){
@@ -130,9 +132,12 @@ char *exception_messages[] = {
 
 void register_interrupt_handler(uint8_t n ,isr_t handler){
   interrupt_handlers[n] = handler;
+  print_string("in register interrupt handler\n");
 }
 
 void isr_handler(registers_t *r){
+  print_string(exception_messages[5]);
+  print_string("hello ji");
   print_string(exception_messages[(*r).int_no]);
 }
 
@@ -141,10 +146,8 @@ void irq_handler(registers_t *r){
     isr_t handler = interrupt_handlers[r->int_no];
     handler(r);
   }
+  port_byte_out(0x20, 0x20);
   if(r->int_no < 40){
     port_byte_out(0xA0,0x20);
   }
-  port_byte_out(0x20, 0x20);
 }
-
-

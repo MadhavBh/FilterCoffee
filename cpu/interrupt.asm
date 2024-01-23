@@ -6,9 +6,7 @@ isr_common_stub:
     
     mov ax, ds ; data segment selector
     push eax
-
     mov ax, 0x10 ; kernel data segment
-
     mov fs, ax
     mov gs, ax
 

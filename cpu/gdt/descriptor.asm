@@ -4,9 +4,9 @@ global flush_gdt
 [extern gdtptr]
 
 flush_gdt:
-  mov eax, [esp + 4]
-  lgdt[eax]
-  ;lgdt[gdtptr]
+  ;mov eax, [esp + 4]
+  ;lgdt[eax]
+  lgdt[gdtptr]
   mov ax, 0x10
   mov ds, ax
   mov es, ax
