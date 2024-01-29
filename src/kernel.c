@@ -12,12 +12,12 @@ void kernel_main(void){
   print_string("enabling gdt\n");
   init_gdt();
   print_string("ENABLING INTERRUPTS\n");
-
+  asm volatile("sti"); 
   print_string("installing Service Routines...\n");
   isr_install();
-  repro_pic();
-  irq_install();
-  asm volatile("sti"); 
+  //repro_pic();
+  //irq_install();
+
 
   print_string("initializing keyboard...\n");
   init_keyboard();

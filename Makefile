@@ -2,7 +2,8 @@ default: run
 .PHONY: default build run clean
 
 run: build/filtercoffee.iso
-	qemu-system-x86_64 -d int -no-reboot -cdrom build/filtercoffee.iso
+	qemu-system-x86_64 -d int -no-reboot -cdrom build/filtercoffee.iso -k en-us 
+
 
 build/filtercoffee.iso: build/kernel.bin grub.cfg
 	mkdir -p build/isofiles/boot/grub

@@ -137,7 +137,6 @@ void register_interrupt_handler(uint8_t n ,isr_t handler){
 
 void isr_handler(registers_t *r){
   print_string(exception_messages[5]);
-  print_string("hello ji");
   print_string(exception_messages[(*r).int_no]);
 }
 
@@ -147,7 +146,7 @@ void irq_handler(registers_t *r){
     handler(r);
   }
   port_byte_out(0x20, 0x20);
-  if(r->int_no < 40){
+  if(r->int_no >= 40){
     port_byte_out(0xA0,0x20);
   }
 }

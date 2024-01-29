@@ -301,6 +301,7 @@ irq0:
 irq1:
 	push byte 1
 	push byte 33
+  int 0x80
 	jmp irq_common_stub
 
 irq2:

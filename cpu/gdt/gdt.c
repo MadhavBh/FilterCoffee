@@ -42,8 +42,8 @@ void init_gdt(){
 
   print_string("setting up kernel segments \n");
   set_gdt_gate(0, 0, 0, 0, 0); //Null segment
-  set_gdt_gate(1, 0, 0xFFFFFFFF, 0x9A, 0xDF); //Code segment
-  set_gdt_gate(2, 0, 0xFFFFFFFF, 0x92, 0xDF); //data segment
+  set_gdt_gate(1, 0, 0xFFFFFFFF, 0x9A, 0xCF); //Code segment
+  set_gdt_gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF); //data segment
   print_string("kernel segments have been setup hehehhehehe\n");
   //flush_gdt((unsigned char)&gdtptr);
   flush_gdt();
