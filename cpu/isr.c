@@ -43,6 +43,7 @@ void isr_install(){
     print_string("in isr_install\n");
     repro_pic();
     irq_install();
+    load_idt();
 }
 
 void irq_install(){

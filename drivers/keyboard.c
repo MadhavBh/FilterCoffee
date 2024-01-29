@@ -35,13 +35,13 @@ void print_letter(uint8_t scancode){
 static void keyboard_callback(registers_t *regs){
   print_string("inkeyboardcallback\n");  
   port_byte_out(0x60, 0x3);
-  //uint8_t scancode = port_byte_in(0x60);
-  //print_letter(scancode);
+  uint8_t scancode = port_byte_in(0x60);
+  print_letter(scancode);
 }
 
 void init_keyboard(){
   print_string("in init keyboard\n");
   register_interrupt_handler(IRQ1, keyboard_callback);
-  uint8_t scancode = port_byte_in(0x60);
+  //uint8_t scancode = port_byte_in(0x60);
   //print_letter(scancode);
 }

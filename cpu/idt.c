@@ -22,6 +22,7 @@ void load_idt(){
 
   asm volatile("lidt (%0)" : : "r"(&idt_reg));
   print_string("IDT loaded..\n");
+  asm volatile("sti");
   
 }
 

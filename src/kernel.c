@@ -6,17 +6,13 @@
 
 void kernel_main(void){
   clear_screen();
-
   print_string("good evening\n");
-  asm volatile("cli");
+  //asm volatile("cli");
   print_string("enabling gdt\n");
   init_gdt();
-  print_string("ENABLING INTERRUPTS\n");
-  asm volatile("sti"); 
-  print_string("installing Service Routines...\n");
   isr_install();
-  //repro_pic();
-  //irq_install();
+  //asm volatile("sti"); 
+  print_string("installing Service Routines...\n");
 
 
   print_string("initializing keyboard...\n");
