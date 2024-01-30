@@ -20,9 +20,9 @@ void load_idt(){
   idt_reg.base = (uint32_t) &idt;
   idt_reg.limit = 256 * sizeof(idt_gate_t) - 1;
 
-  asm volatile("lidt (%0)" : : "r"(&idt_reg));
+  asm volatile("lidt %0" : : "m"(idt_reg));
   print_string("IDT loaded..\n");
-  asm volatile("sti");
-  
+  asm volatile("sti"); // ENABLING INTERRUPTS ________ IMPORTANT 
+
 }
 

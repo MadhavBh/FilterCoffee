@@ -39,7 +39,17 @@ static void keyboard_callback(registers_t *regs){
   print_letter(scancode);
 }
 
+void flush_keyboard_buffer(){
+  uint8_t status;
+  uint8_t data;
+
+  while((port_byte_in(0x64) & 0x01) != 0 ){
+    data = port_byte_in(0x60);
+  }
+}
+
 void init_keyboard(){
+  flush_keyboard_buffer();
   print_string("in init keyboard\n");
   register_interrupt_handler(IRQ1, keyboard_callback);
   //uint8_t scancode = port_byte_in(0x60);

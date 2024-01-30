@@ -7,9 +7,9 @@
 void kernel_main(void){
   clear_screen();
   print_string("good evening\n");
-  //asm volatile("cli");
   print_string("enabling gdt\n");
   init_gdt();
+  asm volatile("cli");
   isr_install();
   //asm volatile("sti"); 
   print_string("installing Service Routines...\n");
