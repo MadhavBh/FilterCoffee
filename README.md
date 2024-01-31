@@ -5,9 +5,7 @@
 
 The FilterCoffee is an x86_32-bit architecture based hobby kernel. 
 
-*This is a work in progress*
+Implemented::: GDT -- IDT -- VGA driver -- Keyboard Driver 
 
-utilizing this project to learn about system architectures and different instruction sets.
 
-using only VGA text mode
 
