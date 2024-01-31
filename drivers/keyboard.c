@@ -19,6 +19,24 @@ void print_letter(uint8_t scancode){
     case 0x03:
       print_string("2");
       break;
+    case 0x04:
+      print_string("3");
+      break;
+    case 0x05:
+      print_string("4");
+      break;
+    case 0x06:
+      print_string("5");
+      break;
+    case 0x07:
+      print_string("6");
+      break;
+    case 0x8:
+      print_string("7");
+      break;
+    
+    
+    
 
     default:
       if(scancode <= 0x7f){
@@ -33,8 +51,6 @@ void print_letter(uint8_t scancode){
   }
 }
 static void keyboard_callback(registers_t *regs){
-  print_string("inkeyboardcallback\n");  
-  port_byte_out(0x60, 0x3);
   uint8_t scancode = port_byte_in(0x60);
   print_letter(scancode);
 }

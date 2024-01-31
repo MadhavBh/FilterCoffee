@@ -58,7 +58,7 @@ int scroll(int offset){
                MAX_COL * (MAX_ROWS - 1) *2);
 
   for (int col = 0; col < MAX_COL ; col++){
-    set_char_at_video_mem('-', get_offset(col, MAX_ROWS - 1));
+    set_char_at_video_mem(' ', get_offset(col, MAX_ROWS - 1));
   }
   return offset - 2 * MAX_COL; 
 }

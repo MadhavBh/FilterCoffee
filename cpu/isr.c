@@ -146,8 +146,9 @@ void irq_handler(registers_t *r){
     isr_t handler = interrupt_handlers[r->int_no];
     handler(r);
   }
-  port_byte_out(0x20, 0x20);
-  if(r->int_no < 40){
+  if(r->int_no >= 8){
     port_byte_out(0xA0,0x20);
   }
+  port_byte_out(0x20, 0x20);
+
 }
