@@ -36,8 +36,8 @@ build/descriptor.o: cpu/gdt/descriptor.asm
 build/interrupt.o: cpu/interrupt.asm # new CPU 
 	nasm -felf32 cpu/interrupt.asm -o build/interrupt.o
 
-build/ports.o: src/ports.c #new PORTS
-	/home/madhavbh/opt/cross/bin/i686-elf-gcc -c src/ports.c -o build/ports.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+build/ports.o: drivers/ports.c #new PORTS
+	/home/madhavbh/opt/cross/bin/i686-elf-gcc -c drivers/ports.c -o build/ports.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
 build/keyboard.o: drivers/keyboard.c #new driver
 	/home/madhavbh/opt/cross/bin/i686-elf-gcc -c drivers/keyboard.c -o build/keyboard.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra

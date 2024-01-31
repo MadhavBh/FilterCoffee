@@ -3,8 +3,7 @@
 #include"../drivers/vga2.h"
 #include"../cpu/idt.h"
 #include"../cpu/isr.h"
-#include"../src/ports.h"
-#include "../src/utils.h"
+#include"../drivers/ports.h"
 
 void print_letter(uint8_t scancode){
   switch (scancode) {
@@ -46,6 +45,12 @@ void print_letter(uint8_t scancode){
       break;
     case 0x0b:
       print_string("0");
+      break;
+    case 0x0e:
+      backspace();
+      break;
+    case 0x0f:
+      print_string("    ");
       break;
     case 0x10:
       print_string("Q");

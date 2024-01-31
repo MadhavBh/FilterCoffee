@@ -7,7 +7,7 @@
 #define MAX_ROWS 25
 #define MAX_COL 80 
 #define WHITE_ON_BLACK 0x0f
-#include "../src/ports.h"
+#include "../drivers/ports.h"
 #include "vga2.h"
 
 void video_mem_cp(char *source, char *dest, int nbytes){
@@ -16,7 +16,6 @@ void video_mem_cp(char *source, char *dest, int nbytes){
     *(dest + i) = *(source + i);
   }
 }
-
 
 void set_cursor(int offset){
   offset /= 2;
@@ -50,6 +49,12 @@ void set_char_at_video_mem(char character, int offset){
   uint8_t *vidmem = (uint8_t*) VIDEO_ADD;
   vidmem[offset]= character;
   vidmem[offset + 1] = WHITE_ON_BLACK;
+}
+
+void backspace(){
+  int cursor = get_cursor() - 2;
+  set_char_at_video_mem(' ', cursor);
+  set_cursor(cursor);
 }
 
 int scroll(int offset){

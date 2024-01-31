@@ -2,7 +2,7 @@
 #include <stdint.h>
 //#include <sys/types.h>
 #include"idt.h"
-#include"../src/ports.h"
+#include"../drivers/ports.h"
 #include"../drivers/vga2.h"
 
 isr_t interrupt_handlers[256];

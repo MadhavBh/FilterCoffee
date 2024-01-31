@@ -10,7 +10,7 @@ void set_char_at_video_mem(char character, int offset);
 int scroll(int offset);
 void clear_screen();
 void print_string(char *string);
-
+void backspace();
 
 
 
