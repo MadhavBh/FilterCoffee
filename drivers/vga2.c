@@ -1,4 +1,3 @@
-#include <stdint.h>
 #define VGA_CTRL_REG 0x3d4 
 #define VGA_DATA_REG 0x3d5 
 #define VGA_OFFSET_LOW 0x0f
@@ -7,6 +6,7 @@
 #define MAX_ROWS 25
 #define MAX_COL 80 
 #define WHITE_ON_BLACK 0x0f
+#define GRAY_ON_WHITE 0x06
 #include "../drivers/ports.h"
 #include "vga2.h"
 
