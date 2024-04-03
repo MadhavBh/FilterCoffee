@@ -29,7 +29,7 @@ static void keyboard_callback(registers_t *regs){
   }
   else if(scancode == ENTER){
     print_string("\n");
-    execute(key_buffer);
+    handleCommand(key_buffer);
     key_buffer[0] = '\0';
   }
   else{

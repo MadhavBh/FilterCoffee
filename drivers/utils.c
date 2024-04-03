@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include"utils.h"
 #include "vga2.h"
-
+#include "../commands/comm.h"
 //returns less than 0 if s < d, 0 is s==d, more than 0 if s > d
 int compare_string(char s[],char d[]){
   int i; 
@@ -57,5 +57,28 @@ void execute(char *input){
     print_string("unknown command: ");
     print_string(input);
     print_string("\n>> ");
+  }
+}
+
+
+void handleCommand(const char *command){
+  
+  if(compare_string(command, "HELP")==0){
+    print_help(); 
+  }
+  else if(compare_string(command, "")==0){
+    print_string("\n>>");
+
+  }
+  else if(compare_string(command,"EXIT")==0){
+    halt_cpu();
+  }
+  else if (compare_string(command, "CLEAR")==0 ){
+    clearScreen(); 
+  }
+  else{
+    print_string("Unknown Command: ");
+    print_string(command);
+    print_string("\n>>");
   }
 }

@@ -9,11 +9,11 @@ build/filtercoffee.iso: build/kernel.bin grub.cfg
 	mkdir -p build/isofiles/boot/grub
 	cp grub.cfg build/isofiles/boot/grub
 	cp build/kernel.bin build/isofiles/boot/
-	grub-mkrescue -o build/filtercoffee.iso build/isofiles
+	grub2-mkrescue -o build/filtercoffee.iso build/isofiles
 
-build/kernel.bin: build/boot.o build/mbhead.o build/vga.o build/kernel.o build/isr.o build/idt.o build/gdt.o build/interrupt.o build/descriptor.o build/ports.o build/utils.o build/keyboard.o linker.ld
+build/kernel.bin: build/boot.o build/mbhead.o build/vga.o build/kernel.o build/isr.o build/idt.o build/gdt.o build/comm.o build/interrupt.o build/descriptor.o build/ports.o build/utils.o build/keyboard.o linker.ld
 	#ld -n -m elf_i386 -o build/kernel.bin -T linker.ld build/boot.o build/mbhead.o
-	/home/madhavbh/opt/cross/bin/i686-elf-gcc -T src/linker.ld -o build/kernel.bin -ffreestanding -O2 -nostdlib build/mbhead.o build/boot.o build/vga.o build/isr.o build/idt.o build/gdt.o build/interrupt.o build/descriptor.o build/ports.o build/utils.o build/keyboard.o  build/kernel.o -lgcc
+	/home/madhavbh/opt/cross/bin/i686-elf-gcc -T src/linker.ld -o build/kernel.bin -ffreestanding -O2 -nostdlib build/mbhead.o build/boot.o build/vga.o build/isr.o build/idt.o build/gdt.o build/interrupt.o build/descriptor.o build/comm.o build/ports.o build/utils.o build/keyboard.o  build/kernel.o -lgcc
 
 build/kernel.o: src/kernel.c 
 	/home/madhavbh/opt/cross/bin/i686-elf-gcc -c src/kernel.c -o build/kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
@@ -44,6 +44,9 @@ build/utils.o: drivers/utils.c
 
 build/keyboard.o: drivers/keyboard2.c #new driver
 	/home/madhavbh/opt/cross/bin/i686-elf-gcc -c drivers/keyboard2.c -o build/keyboard.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+
+build/comm.o: commands/comm.c 
+	/home/madhavbh/opt/cross/bin/i686-elf-gcc -c commands/comm.c -o build/comm.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 
 build/boot.o: src/boottwo.asm
 	mkdir -p build
